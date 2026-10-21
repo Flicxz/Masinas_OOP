@@ -5,8 +5,6 @@ import java.util.regex.Pattern;
 
 import javax.swing.JOptionPane;
 
-import MUG.Masina;
-
 
 
 public class Garaza {
@@ -71,8 +69,57 @@ public class Garaza {
 						izvelne = "Aizvērt";
 					
 					switch(izvelne) {
+					case "Pievienot mašīnu":
+						String razotajs, modelis, krasa;
+						String cels;
+						int rpm, ratio1, ratio2, Fratio1, Fratio2, riepas;
+						razotajs = 
+								virknesParbaude("Ievadi mašīnas ražotāju", "Porsche");
+						modelis =
+								virknesParbaude("Ievadi mašīnas modeli", "GT");
+						krasa =
+								virknesParbaude("Ievadi mašīnas krāsu", "Melna");
+						cels =
+								virknesParbaude("Ievadi bildes nosaukumu", "car");
+						rpm =
+								skaitlaParbaude("Ievadi mašīnas dzinēja apgriezienu skaitu:",
+										1200, 20500);
+						ratio1 =
+								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(_.##)",
+										1, 4);
+						ratio2 =
+								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(" + ratio1 + ".__)",
+										1, 99);
+						Fratio1 =
+								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(_.##)",
+										1, 4);
+						Fratio2 =
+								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(" + Fratio1 + ".__)",
+										1, 99);
+						riepas =
+								skaitlaParbaude("Ievadi riepu diametru",
+										45, 531);
+							
+						car = new Masina(razotajs, modelis, krasa, 
+								cels, rpm, ratio1, 
+								ratio2, Fratio1, Fratio2, riepas);
+						break;
 					
-					
+					case "Izsaukt metodi":
+						if(car != null) {
+							String [] metozuSaraksts = {"Izbraukt", 
+									"Nolasīt mašīnas parametrus", "Noteikt ātrumu", "Pārkrāsot",
+									"Samainīt mašīnas parametrus", "Samainīt mašīnu"};
+							
+							String metode = (String) JOptionPane.showInputDialog(null,
+									"Izvēlies metodi", "Metodes izvēle",
+									JOptionPane.QUESTION_MESSAGE, null,
+									metozuSaraksts, metozuSaraksts[0]);
+							
+							if(metode == null)
+								break;
+							
+							switch(metode) {
 					
 					}
 					} while(!izvelne.equals("Aizvērt"));
