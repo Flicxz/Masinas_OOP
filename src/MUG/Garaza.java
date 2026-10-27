@@ -50,10 +50,7 @@ public class Garaza {
 		
 	}
 	public static void main(String[] args) {
-		String izvelne, failaNosaukums = 
-				System.getProperty("user.home")
-				+ File.separator + "Desktop" + 
-				File.separator + "masinas.txt";
+		String izvelne;
 				Masina car = null;
 				String[] darbibuSaraksts = {"Pievienot mašīnu", "Izsaukt metodi",
 						"Saglabāt failā", "Apskatīt failā gatavās mašīnas",
@@ -72,7 +69,7 @@ public class Garaza {
 					case "Pievienot mašīnu":
 						String razotajs, modelis, krasa;
 						String cels;
-						int rpm, ratio1, ratio2, Fratio1, Fratio2, riepas;
+						int rpm, ratio1, ratio2, ratio3, Fratio1, Fratio2, Fratio3, riepas;
 						razotajs = 
 								virknesParbaude("Ievadi mašīnas ražotāju", "Porsche");
 						modelis =
@@ -83,7 +80,7 @@ public class Garaza {
 								virknesParbaude("Ievadi bildes nosaukumu", "car");
 						rpm =
 								skaitlaParbaude("Ievadi mašīnas dzinēja apgriezienu skaitu:",
-										1200, 20500);
+										2500, 20500);
 						ratio1 =
 								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(_.##)\n"
 										+ "zem 25mph - 2\n"
@@ -91,41 +88,62 @@ public class Garaza {
 										+ "virs 55mph - 0\n",
 										0, 4);
 						ratio2 =
-								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(" + ratio1 + ".__)\n"
-										+ "zem 25mph - 50\n"
-										+ "zem 55mph - 30\n"
-										+ "virs 55mph -75\n",
-										1, 99);
+								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(" + ratio1 + "._#)\n"
+										+ "zem 25mph - 5\n"
+										+ "zem 55mph - 3\n"
+										+ "virs 55mph -7\n",
+										0, 9);
+						ratio3 =
+								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(" + ratio1 + "." + ratio2 + "_)\n"
+										+ "zem 25mph - 0\n"
+										+ "zem 55mph - 0\n"
+										+ "virs 55mph -5\n",
+										0, 9);
 						Fratio1 =
 								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(_.##)\n"
 										+ "zem 25mph - 3\n"
 										+ "zem 55mph - 3\n"
 										+ "virs 55mph - 3\n",
-										1, 4);
+										0, 4);
 						Fratio2 =
-								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(" + Fratio1 + ".__)\n"
-										+ "zem 25mph - 50\n"
+								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(" + Fratio1 + "._#)\n"
+										+ "zem 25mph - 5\n"
+										+ "zem 55mph - 0\n"
+										+ "virs 55mph - 0\n",
+										0, 9);
+						Fratio3 =
+								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(" + Fratio1 + "." + Fratio2 + "_)\n"
+										+ "zem 25mph - 0\n"
 										+ "zem 55mph - 0\n"
 										+ "virs 55mph - 8\n",
-										1, 99);
+										0, 9);
 						riepas =
 								skaitlaParbaude("Ievadi riepu diametru",
 										26, 531);
-						double r = (double) ratio1 + (ratio2 / 10);
-						double Fr = (double) Fratio1 + (Fratio2 / 10);
+						String teksts = ratio1 + "." + ratio2 + ratio3;
+						double r = Double.parseDouble(teksts);
+						teksts = Fratio1 + "." + Fratio2 + Fratio3;
+						double Fr = Double.parseDouble(teksts);
 						double atrums = (rpm * riepas) / ((r * Fr) * 336);
 							
 						car = new Masina(razotajs, modelis, krasa, 
 								cels, rpm, ratio1, 
-								ratio2, Fratio1, Fratio2, riepas, r, Fr, atrums);
+								ratio2, ratio3, Fratio1, Fratio2, Fratio3, riepas, r, Fr, atrums);
 						break;
-					
+						
+					case "Saglabāt failā":
+						car.saglabatFaila();
+						break;
+						
+					case "Apskatīt failā gatavās mašīnas":
+						car.nolasit();
+						break;
+						
 					case "Izsaukt metodi":
 						if(car != null) {
-							String [] metozuSaraksts = {"Izbraukt", 
-									"Nolasīt mašīnas parametrus", "Noteikt ātrumu", "Pārkrāsot",
-									"Samainīt mašīnas parametrus", "Samainīt mašīnu"};
-							
+							String [] metozuSaraksts = {"Noteikt ātrumu", 
+									"Izbraukt", "Nolasīt mašīnas parametrus", "Pārkrāsot",
+									"Samainīt mašīnas parametrus", "Samainīt mašīnu", "Atpakaļ"};
 							String metode = (String) JOptionPane.showInputDialog(null,
 									"Izvēlies metodi", "Metodes izvēle",
 									JOptionPane.QUESTION_MESSAGE, null,
@@ -138,7 +156,30 @@ public class Garaza {
 							case "Noteikt ātrumu":
 								car.noteiktAtrumu();
 								break;
-					}
+					
+							case "Izbraukt":
+								car.izbraukt();
+								break;
+								
+							case "Nolasīt mašīnas parametrus":
+								car.nolasit();
+								break;
+								
+							case "Pārkrāsot":
+								car.parkrasot();
+								break;
+								
+							case "Samainīt mašīnas parametrus":
+								car.samainit();
+								break;
+								
+							case "Samainīt mašīnu":
+//								car.masinas();
+								break;
+								
+								
+							}
+								
 						}
 					}
 					} while(!izvelne.equals("Aizvērt"));

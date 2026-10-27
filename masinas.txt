@@ -1,0 +1,13 @@
+Ražotājs: Porsche | Modelis: GT | Krāsa: Melna | Aprēķinātais ātrums: 22.108843537414966 mph
+Ražotājs: Porsche
+Modelis: GT
+Krāsa: Melna
+Ātrums: 22.11 mph
+Ražotājs: Porsche
+Modelis: GT
+Krāsa: Melna
+Ātrums: ∞ mph
+Ražotājs: Porsche
+Modelis: GT
+Krāsa: Melna
+Ātrums: 110.54 mph
