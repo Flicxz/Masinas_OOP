@@ -85,24 +85,39 @@ public class Garaza {
 								skaitlaParbaude("Ievadi mašīnas dzinēja apgriezienu skaitu:",
 										1200, 20500);
 						ratio1 =
-								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(_.##)",
-										1, 4);
+								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(_.##)\n"
+										+ "zem 25mph - 2\n"
+										+ "zem 55mph - 1\n"
+										+ "virs 55mph - 0\n",
+										0, 4);
 						ratio2 =
-								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(" + ratio1 + ".__)",
+								skaitlaParbaude("Ievadi mašīnas pārnesumskaitli(" + ratio1 + ".__)\n"
+										+ "zem 25mph - 50\n"
+										+ "zem 55mph - 30\n"
+										+ "virs 55mph -75\n",
 										1, 99);
 						Fratio1 =
-								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(_.##)",
+								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(_.##)\n"
+										+ "zem 25mph - 3\n"
+										+ "zem 55mph - 3\n"
+										+ "virs 55mph - 3\n",
 										1, 4);
 						Fratio2 =
-								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(" + Fratio1 + ".__)",
+								skaitlaParbaude("Ievadi mašīnas galvenā pāra pārnesumskaitli(" + Fratio1 + ".__)\n"
+										+ "zem 25mph - 50\n"
+										+ "zem 55mph - 0\n"
+										+ "virs 55mph - 8\n",
 										1, 99);
 						riepas =
 								skaitlaParbaude("Ievadi riepu diametru",
-										45, 531);
+										26, 531);
+						double r = (double) ratio1 + (ratio2 / 10);
+						double Fr = (double) Fratio1 + (Fratio2 / 10);
+						double atrums = (rpm * riepas) / ((r * Fr) * 336);
 							
 						car = new Masina(razotajs, modelis, krasa, 
 								cels, rpm, ratio1, 
-								ratio2, Fratio1, Fratio2, riepas);
+								ratio2, Fratio1, Fratio2, riepas, r, Fr, atrums);
 						break;
 					
 					case "Izsaukt metodi":
@@ -120,7 +135,11 @@ public class Garaza {
 								break;
 							
 							switch(metode) {
-					
+							case "Noteikt ātrumu":
+								car.noteiktAtrumu();
+								break;
+					}
+						}
 					}
 					} while(!izvelne.equals("Aizvērt"));
 
